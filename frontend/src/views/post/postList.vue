@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-5">
     <nav class="mt-4 mb-3 ml-3">
       <div class="nav nav-tabs d-flex" id="nav-tab" role="tablist">
         <a
@@ -47,11 +47,11 @@
       >
         <table class="table">
           <thead>
-            <tr>
-              <th scope="col">카테고리</th>
-              <th scope="col">제목</th>
-              <th scope="col">글쓴이</th>
-              <th scope="col">내용</th>
+            <tr class>
+              <th scope="col"></th>
+              <th scope="col-6">제목</th>
+              <th scope="col">작성자</th>
+              <th scope="col">작성일</th>
             </tr>
           </thead>
           <tbody>
@@ -81,11 +81,7 @@
                   :to="{name:'postDetail',params:{ID:`${article.articleId}`}}"
                 >{{ article.writer }}</router-link>
               </td>
-              <td>
-                <router-link
-                  :to="{name:'postDetail',params:{ID:`${article.articleId}`}}"
-                >{{ article.description }}</router-link>
-              </td>
+              <td>{{ article.createtime }}</td>
             </tr>
           </tbody>
         </table>
@@ -100,10 +96,10 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">카테고리</th>
+              <th scope="col"></th>
               <th scope="col">제목</th>
-              <th scope="col">글쓴이</th>
-              <th scope="col">내용</th>
+              <th scope="col">작성자</th>
+              <th scope="col">작성일</th>
             </tr>
           </thead>
           <tbody>
@@ -133,11 +129,7 @@
                   :to="{name:'postDetail',params:{ID:`${article.articleId}`}}"
                 >{{ article.writer }}</router-link>
               </td>
-              <td>
-                <router-link
-                  :to="{name:'postDetail',params:{ID:`${article.articleId}`}}"
-                >{{ article.description }}</router-link>
-              </td>
+              <td>{{ article.createtime }}</td>
             </tr>
           </tbody>
         </table>
@@ -152,10 +144,10 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">카테고리</th>
+              <th scope="col"></th>
               <th scope="col">제목</th>
-              <th scope="col">글쓴이</th>
-              <th scope="col">내용</th>
+              <th scope="col">작성자</th>
+              <th scope="col">작성일</th>
             </tr>
           </thead>
           <tbody>
@@ -185,11 +177,7 @@
                   :to="{name:'postDetail',params:{ID:`${article.articleId}`}}"
                 >{{ article.writer }}</router-link>
               </td>
-              <td>
-                <router-link
-                  :to="{name:'postDetail',params:{ID:`${article.articleId}`}}"
-                >{{ article.description }}</router-link>
-              </td>
+              <td>{{ article.createtime }}</td>
             </tr>
           </tbody>
         </table>
