@@ -15,6 +15,10 @@ export default new Vuex.Store({
     authToken: cookies.get("auth-token"),
     adminToken: cookies.get("admin-token"),
     isLoggedin: false,
+    isTerm: false,
+    isChecked: false,
+    // isSended: false,
+
     userData: {
       name: "",
       address: "",
@@ -34,7 +38,9 @@ export default new Vuex.Store({
       tempList: [],
       grade: "",
     },
-    isTerm: false,
+
+
+    
     articleData: {
       articleId: "",
       userId: "",
@@ -57,7 +63,7 @@ export default new Vuex.Store({
       tags: [],
     },
 
-    isSended: false,
+    
 
     //게시글
     articles: [],
@@ -116,6 +122,9 @@ export default new Vuex.Store({
         state.isTerm = true;
       }
     },
+    duCheck(state,bool){
+      state.isChecked=bool
+    },
     GET_USERDATA(state, userData) {
       state.userData = userData;
     },
@@ -161,20 +170,21 @@ export default new Vuex.Store({
     //     alert("빈 칸을 채워 주세요");
     //   }
     // },
-    duCheck(context, nickname) {
-      axios
-        .get(`${BACK_URL}/account/nicknamecheck/${nickname}`)
+    duCheck({commit}, nickname) {
+      axios.get(`${BACK_URL}/account/nicknamecheck/${nickname}`)
         .then((response) => {
-          alert(response.data);
+          alert(response.data)
+          commit("duCheck",true)
         })
         .catch((error) => {
-          alert(error.data);
-        });
+          alert(error.data)
+          commit("duCheck",false)
+        })
     },
     signUp({ state, commit }, signUpData) {
-      if (state.isTerm) {
-        axios
-          .post(`${BACK_URL}/account/signup`, signUpData)
+      if (state.isChecked) {
+        if(state.isTerm){
+          axios.post(`${BACK_URL}/account/signup`, signUpData)
           .then((response) => {
             alert("회원가입이 완료되었습니다.");
             commit("SET_TOKEN", response.data);
@@ -183,10 +193,12 @@ export default new Vuex.Store({
           })
           .catch((err) => {
             console.log(err);
-            alert("빈 칸을 채워 주세요");
           });
+        }else{
+          alert("약관에 동의해 주세요")
+        }
       } else {
-        alert("약관에 동의해 주세요");
+        alert("빈 칸을 채워 주세요")
       }
     },
     // login({ commit }, loginData) {
@@ -332,10 +344,10 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
-    //게시글 검색
+    //전체 게시글 검색
     search({ commit }, searchData) {
+      console.log("ASDASDASDASDASDASD")
       cookies.set("searchData", searchData, 0);
-
       searchData.categoryId = 0;
       axios
         .post(
@@ -345,11 +357,9 @@ export default new Vuex.Store({
         .then((res) => {
           commit("GET_ARTICLES", res.data.postList);
           router.push({ name: "searchList" });
-          searchData.categoryId = "기본값";
         })
         .catch((err) => {
-          console.log(err);
-          searchData.categoryId = "기본값";
+          console.log(err); 
         });
     },
     detailSearch({ commit }, searchData) {
